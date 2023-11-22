@@ -3,7 +3,12 @@ import { CacheProvider } from '@emotion/react';
 
 import type { AppProps } from 'next/app';
 import { createEmotionCache } from '../../utils/create-emotion-cache';
+import { Provider } from 'react-redux';
+import { PersistGate } from 'redux-persist/integration/react';
+import { persistStore } from 'redux-persist';
+import store from '@/slices';
 
+const persistor = persistStore(store);
 const clientSideEmotionCache = createEmotionCache();
 
 export default function App(props: any) {
@@ -11,7 +16,11 @@ export default function App(props: any) {
   return (
     <>
       <CacheProvider value={emotionCache}>
-        <Component {...pageProps} />
+        <Provider store={store}>
+          <PersistGate persistor={persistor}>
+            <Component {...pageProps} />
+          </PersistGate>
+        </Provider>
       </CacheProvider>
     </>
   );

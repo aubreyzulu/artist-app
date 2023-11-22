@@ -1,4 +1,3 @@
-import { Inter } from 'next/font/google';
 import Search from '@/components/Search';
 import { useDebounce } from 'use-debounce';
 import { useState } from 'react';
@@ -14,19 +13,26 @@ import {
   useFetchEvents,
 } from '@/data-provider/useFetchArtists';
 import ArtistInfo from '@/components/ArtistInfo';
+import Favorite from '@/components/Favorite';
+import { useDispatch, useSelector } from 'react-redux';
+import { RootState } from '@/slices';
+import { addToFavorites, removeFromFavorites } from '@/slices/favorite';
 
-const inter = Inter({ subsets: ['latin'] });
+export function HomeWrapper() {}
 
 export default function Home() {
   const [query, setQuery] = useState('');
   const [value] = useDebounce(query, 1000);
-  const artistName = query || 'John';
-  const [favorites, setFavorites] = useState<string[]>([]);
+  const artistName = value || 'John';
+  const dispatch = useDispatch();
   const [eventData, setEventData] = useState<EventData>();
-  const { artist } = useFetchArtist({ query, APP_ID, artistName });
-  const { events } = useFetchEvents({ query, APP_ID, artistName });
-
-  const handleChange = (e: any) => setQuery(e.target.value);
+  const { artist } = useFetchArtist({ query: value, APP_ID, artistName });
+  const { events } = useFetchEvents({ query: value, APP_ID, artistName });
+  const favorites = useSelector((state: RootState) => state.favorites.events);
+  const handleChange = (e: any) => {
+    setQuery(e.target.value);
+    setEventData(undefined);
+  };
 
   const handleClick = (id: number): void => {
     const event = events[id];
@@ -39,14 +45,11 @@ export default function Home() {
   };
   const handleFavorite = (name: string) => {
     const isFavorite = favorites.includes(name);
-
-    setFavorites((prevFavorites) => {
-      if (isFavorite) {
-        return prevFavorites.filter((item: string) => item !== name);
-      } else {
-        return [...prevFavorites, name];
-      }
-    });
+    if (isFavorite) {
+      dispatch(removeFromFavorites(name));
+    } else {
+      dispatch(addToFavorites(name));
+    }
   };
   const isFavorite = (name: string): boolean => {
     return favorites.includes(name);
@@ -88,13 +91,22 @@ export default function Home() {
             <EventDetails
               eventData={eventData}
               handleFavorite={handleFavorite}
-              favorites={favorites}
               isFavorite={isFavorite}
             />
           )}
         </Grid>
         <Grid xs={2} sm={4} md={4}>
-          <Typography>grid here</Typography>
+          <Typography>Favorites</Typography>
+          {favorites && favorites.length > 0
+            ? favorites.map((favorite) => (
+                <Favorite
+                  handleFavorite={handleFavorite}
+                  key={nanoid(6)}
+                  isFavorite={isFavorite}
+                  favorite={favorite}
+                />
+              ))
+            : null}
         </Grid>
       </Grid>
     </Container>

@@ -6,17 +6,17 @@ import StarIcon from '@mui/icons-material/Star';
 interface EventInfoProps {
   eventData: EventData;
   handleFavorite: (name: string) => void;
-  favorites: string[];
   isFavorite: (name: string) => boolean;
 }
 
 const EventDetails = ({
   eventData,
   handleFavorite: handleFavorite,
-  favorites: favorites,
+
   isFavorite,
 }: EventInfoProps) => {
   const favorite = isFavorite(eventData.venue.name);
+  console.log(eventData.venue.name);
 
   return (
     <Paper sx={{ width: '100%', p: 2 }}>
