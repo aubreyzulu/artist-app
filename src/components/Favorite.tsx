@@ -22,7 +22,8 @@ export default function Favorite({
       }}
     >
       <Paper
-        elevation={0.5}
+        onClick={() => handleFavorite(favorite)}
+        elevation={0}
         component="div"
         sx={{
           backgroundColor: '#fff',

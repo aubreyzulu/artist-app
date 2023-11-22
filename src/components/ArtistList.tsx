@@ -20,7 +20,7 @@ const EventList = ({ artistData, onClick, index }: EventProps) => {
       onClick={() => onClick(index)}
     >
       <Paper
-        elevation={0.5}
+        elevation={0}
         component="div"
         sx={{
           backgroundColor: '#fff',

@@ -23,7 +23,7 @@ export function HomeWrapper() {}
 export default function Home() {
   const [query, setQuery] = useState('');
   const [value] = useDebounce(query, 1000);
-  const artistName = value || 'John';
+  const artistName = value || 'l';
   const dispatch = useDispatch();
   const [eventData, setEventData] = useState<EventData>();
   const { artist } = useFetchArtist({ query: value, APP_ID, artistName });
@@ -86,7 +86,9 @@ export default function Home() {
             : null}
         </Grid>
         <Grid xs={2} sm={4} md={4}>
-          <Typography>Selected Event Information</Typography>
+          <Typography sx={{ textAlign: 'center' }}>
+            Selected Event Information
+          </Typography>
           {eventData && (
             <EventDetails
               eventData={eventData}
@@ -96,17 +98,34 @@ export default function Home() {
           )}
         </Grid>
         <Grid xs={2} sm={4} md={4}>
-          <Typography>Favorites</Typography>
-          {favorites && favorites.length > 0
-            ? favorites.map((favorite) => (
-                <Favorite
-                  handleFavorite={handleFavorite}
-                  key={nanoid(6)}
-                  isFavorite={isFavorite}
-                  favorite={favorite}
-                />
-              ))
-            : null}
+          <Typography sx={{ textAlign: 'center' }}>Favorites</Typography>
+          {favorites && favorites.length > 0 ? (
+            favorites.map((favorite) => (
+              <Favorite
+                handleFavorite={handleFavorite}
+                key={nanoid(6)}
+                isFavorite={isFavorite}
+                favorite={favorite}
+              />
+            ))
+          ) : (
+            <Paper
+              elevation={0}
+              sx={{
+                height: 400,
+                // display: 'flex',
+                textAlign: 'center',
+                alignContent: 'center',
+                alignItems: 'center',
+              }}
+            >
+              <div>
+                <Typography sx={{ textAlign: 'center' }}>
+                  No favorites
+                </Typography>
+              </div>
+            </Paper>
+          )}
         </Grid>
       </Grid>
     </Container>

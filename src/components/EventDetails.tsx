@@ -1,6 +1,6 @@
 import { EventData } from '@/types';
 
-import { Button, IconButton, Paper, Tooltip, Typography } from '@mui/material';
+import { IconButton, Paper, Tooltip, Typography } from '@mui/material';
 import StarIcon from '@mui/icons-material/Star';
 
 interface EventInfoProps {
@@ -16,10 +16,9 @@ const EventDetails = ({
   isFavorite,
 }: EventInfoProps) => {
   const favorite = isFavorite(eventData.venue.name);
-  console.log(eventData.venue.name);
 
   return (
-    <Paper sx={{ width: '100%', p: 2 }}>
+    <Paper elevation={0} sx={{ width: '100%', p: 2 }}>
       <Typography>Event Details</Typography>
       <Typography>
         <b>Name: </b> {eventData.venue.name}
