@@ -21,7 +21,7 @@ export const useFetchArtist = ({
     const fetchArtist = async () => {
       try {
         const response = await instance.get(`${artistName}?app_id=${APP_ID}`);
-        console.log(response.data);
+        // console.log(response.data);
 
         setArtist(response.data);
       } catch (error: any) {
@@ -57,7 +57,7 @@ export const useFetchEvents = (params: FetchEventsParams) => {
           `${artistName}/events?app_id=${APP_ID}`
         );
         setEvents(response.data);
-        console.log('Events', response.data);
+        // console.log('Events', response.data);
       } catch (error: any) {
         console.log(error.response);
         setError(error.response);
