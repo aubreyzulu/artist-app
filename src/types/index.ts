@@ -13,10 +13,7 @@ export interface ArtistData {
   id: number;
   description?: string;
   status?: string;
-  artist: {
-    name: string;
-    thumb_url: string;
-  };
+  artist: Artist;
   venue: {
     name: string;
     city: string;
