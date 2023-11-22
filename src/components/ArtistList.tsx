@@ -1,6 +1,5 @@
-// import { EventInfoWrapper, EventsWrapper } from './styles';
 import { ArtistData } from '../types';
-import { Box, Paper, List, ListItem, ListItemButton } from '@mui/material';
+import { Box, Paper } from '@mui/material';
 
 interface EventProps {
   artistData: ArtistData;

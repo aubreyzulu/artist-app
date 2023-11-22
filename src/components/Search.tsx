@@ -8,8 +8,9 @@ interface SearchProps {
 
 function Search({ handleChange }: SearchProps) {
   return (
-    <Box sx={{ m: 10, width: 500 }}>
+    <Box sx={{ m: 10, width: '100%' }}>
       <TextField
+        sx={{ width: '50%' }}
         type="search"
         variant="outlined"
         fullWidth
