@@ -5,10 +5,8 @@ import type { AppProps } from 'next/app';
 import { createEmotionCache } from '../../utils/create-emotion-cache';
 import { Provider } from 'react-redux';
 import { PersistGate } from 'redux-persist/integration/react';
-import { persistStore } from 'redux-persist';
-import store from '@/slices';
+import store, { persistor } from '@/slices';
 
-const persistor = persistStore(store);
 const clientSideEmotionCache = createEmotionCache();
 
 export default function App(props: any) {
